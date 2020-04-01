@@ -41,8 +41,6 @@ export class MainEffect {
         retryWhen(errors =>
           errors.pipe(
             delay(1000),
-            withLatestFrom(this.store.pipe(select(selectIsConnected))),
-            filter(([data, isConnected]) => isConnected === true),
             mergeMap(error => of(error))
           )
         )
