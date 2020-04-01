@@ -15,16 +15,22 @@ import {
   retry,
   retryWhen,
   shareReplay,
-  switchMap
+  switchMap,
+  withLatestFrom
 } from 'rxjs/operators';
 import { HttpService } from '../service/http.service';
 import { of } from 'rxjs';
+import { AppStore } from './store';
+import { select, Store } from '@ngrx/store';
+import { selectIsConnected } from './selectors';
 
 @Injectable()
 export class MainEffect {
-  private isConnected: boolean = false;
-
-  constructor(private actions$: Actions, private httpService: HttpService) {}
+  constructor(
+    private actions$: Actions,
+    private httpService: HttpService,
+    private store: Store<AppStore>
+  ) {}
 
   @Effect() initSocket$ = this.actions$.pipe(
     ofType(SEND_DATA),
@@ -35,7 +41,8 @@ export class MainEffect {
         retryWhen(errors =>
           errors.pipe(
             delay(1000),
-            filter(data => this.isConnected === true),
+            withLatestFrom(this.store.pipe(select(selectIsConnected))),
+            filter(([data, isConnected]) => isConnected === true),
             mergeMap(error => of(error))
           )
         )

@@ -1,2 +1,4 @@
 <button (click)="onSend()">SendData</button>
 <button (click)="onConnect()">Change socket</button>
+<span *ngIf="isConnectd$ | async">IsConnectd: true</span>
+<span *ngIf="!(isConnectd$ | async)">IsConnectd: false</span>
