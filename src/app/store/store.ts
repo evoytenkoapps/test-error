@@ -4,13 +4,13 @@ export interface MyData<T> {
 }
 
 export enum MyStatus {
-  PENDING = "PENDING",
-  LOADING = "LOADING",
-  LOADED = "LOADED",
-  FAILED = "FAILED",
-  CANCEL = "CANCEL",
-  SENDING = "SENDING",
-  SENDED = "SENDED"
+  PENDING = 'PENDING',
+  LOADING = 'LOADING',
+  LOADED = 'LOADED',
+  FAILED = 'FAILED',
+  CANCEL = 'CANCEL',
+  SENDING = 'SENDING',
+  SENDED = 'SENDED'
 }
 
 export interface MyDataState {
@@ -19,4 +19,5 @@ export interface MyDataState {
 
 export interface AppStore {
   data: MyDataState;
+  isConnected: boolean;
 }

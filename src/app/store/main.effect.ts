@@ -9,6 +9,7 @@ import {
 import {
   catchError,
   delay,
+  filter,
   map,
   mergeMap,
   retry,
@@ -21,6 +22,8 @@ import { of } from 'rxjs';
 
 @Injectable()
 export class MainEffect {
+  private isConnected: boolean = false;
+
   constructor(private actions$: Actions, private httpService: HttpService) {}
 
   @Effect() initSocket$ = this.actions$.pipe(
@@ -32,6 +35,7 @@ export class MainEffect {
         retryWhen(errors =>
           errors.pipe(
             delay(1000),
+            filter(data => this.isConnected === true),
             mergeMap(error => of(error))
           )
         )

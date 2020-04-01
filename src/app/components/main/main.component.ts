@@ -1,12 +1,12 @@
-import { Component, OnInit } from "@angular/core";
-import { Store } from "@ngrx/store";
-import { AppStore } from "../../store/store";
-import { SEND_DATA, SendData } from "../../store/actions";
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppStore } from '../../store/store';
+import { ChangeSocket, SEND_DATA, SendData } from '../../store/actions';
 
 @Component({
-  selector: "app-main",
-  templateUrl: "./main.component.html",
-  styleUrls: ["./main.component.css"]
+  selector: 'app-main',
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
   private counter: number = 1;
@@ -18,5 +18,9 @@ export class MainComponent implements OnInit {
   public onSend() {
     this.store.dispatch(new SendData(this.counter));
     this.counter++;
+  }
+
+  public onConnect() {
+    this.store.dispatch(new ChangeSocket());
   }
 }

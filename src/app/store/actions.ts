@@ -1,8 +1,9 @@
-import { Action } from "@ngrx/store";
+import { Action } from '@ngrx/store';
 
-export const SEND_DATA = "SEND_DATA";
-export const SEND_DATA_COMPLETE = "SEND_DATA_COMPLETE";
-export const SEND_DATA_ERROR = "SEND_DATA_ERROR";
+export const SEND_DATA = 'SEND_DATA';
+export const SEND_DATA_COMPLETE = 'SEND_DATA_COMPLETE';
+export const SEND_DATA_ERROR = 'SEND_DATA_ERROR';
+export const CHANGE_SOCKET = 'CHANGE_SOCKET';
 
 export class SendData implements Action {
   readonly type = SEND_DATA;
@@ -19,4 +20,13 @@ export class SendDataError implements Action {
   constructor(public payload: number) {}
 }
 
-export type Actions = SendData | SendDataComplete | SendDataError;
+export class ChangeSocket implements Action {
+  readonly type = CHANGE_SOCKET;
+  constructor() {}
+}
+
+export type Actions =
+  | SendData
+  | SendDataComplete
+  | SendDataError
+  | ChangeSocket;
